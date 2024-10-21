@@ -45,4 +45,10 @@ void tp() {
 	build_int_desc(&idt[3], gdt_krn_seg_sel(1), (offset_t)bp_handler);
 
 	bp_trigger();
+
+	/* Q11 : Le développement en C sur la gestion d'interruption est pratique 
+	pour personnaliser un handler adapté selon une interruption spécifique à notre programme. 
+	Toutefois, il est très utile d'utiliser l'assembleur pour réceptionner les interruptions 
+	processeurs et ainsi directement controler la pile pour ensuite exécuter le handler associé. */
+
 }
