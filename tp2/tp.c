@@ -24,9 +24,11 @@ void bp_handler() {
 		"popa\n"				// Restaurer tous les registres généraux
 		"leave\n"				// Restaure le pointeur de pile (ESP) et le pointeur de base (EBP) à leurs valeurs d'avant l'appel de la fonction.
 		"iret\n"				// Retourner de l'interruption
+		// On utilise IRET et non RET car sinon on retourne l'EIP sur le Error Code empilé dans la pile et ça plante.
+		// En utilisant le IRET, on extrait le Error Code (qui techniquement est traité dans le handler) pour retomber
+		// sur la bonne instruction suivante (ici le debug).
 	);
 }
-
 
 void bp_trigger() {
 	asm volatile("int3");
@@ -42,13 +44,16 @@ void tp() {
 	int_desc_t *idt;
 	idt = (int_desc_t *)idtr.addr;
 
-	build_int_desc(&idt[3], gdt_krn_seg_sel(1), (offset_t)bp_handler);
+	// build_int_desc(&idt[3], gdt_krn_seg_sel(1), (offset_t)bp_handler);
+	idt[3].offset_1 = (uint16_t)((uint32_t)bp_handler & 0xffff);
+	idt[3].offset_2 = (uint16_t)((uint32_t)bp_handler >> 16);
+
 
 	bp_trigger();
 
-	/* Q11 : Le développement en C sur la gestion d'interruption est pratique 
-	pour personnaliser un handler adapté selon une interruption spécifique à notre programme. 
-	Toutefois, il est très utile d'utiliser l'assembleur pour réceptionner les interruptions 
-	processeurs et ainsi directement controler la pile pour ensuite exécuter le handler associé. */
+	/* Q11 : Le développement en C sur la gestion d'interruption n'est pas pratique 
+	car on doit gérer le retour avec IRET dû au Error Code. Deplus, on écrit en 
+	Assembleur In Line dans notre code C pour gérer les registres, il est donc préférable 
+	d'écrire les interruptions uniquement en assembleur pour gérer les intérruptions. */
 
 }
