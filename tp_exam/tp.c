@@ -86,4 +86,8 @@ void tp() {
 
 	printf("IDT Base Address: \t[%p]\n", (void *)idtr.addr);
 
+    // ~~~ hardware interrupt activation ~~~
+
+    asm volatile("sti");
+
 }
