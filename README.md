@@ -82,3 +82,30 @@ fichier `tp.c` est celui dans lequel **les développements sont attendus**.
 # En savoir plus
 
 Cf. [wiki](https://github.com/agantet/secos-ng/wiki)
+
+Voici une version réécrite du texte en Markdown plus élégante :
+
+##########################################################################
+
+# Ajout de fichiers .c et .h
+
+## Structure des dossiers
+
+- Mettez les fichiers `.c` dans `kernel/core`
+- Mettez les fichiers `.h` dans `kernel/include`
+
+## Modification de config.mk
+
+Ajoutez les fichiers `.c` à compiler dans la variable `core_obj`, suivant le même modèle que les précédents.
+
+## Inclusion des fichiers .h
+
+Dans `tp.c`, incluez les fichiers `.h` comme suit :
+
+```c
+#include <... .h>
+```
+
+## Vérification de la compilation
+
+Testez la compilation pour vous assurer que tout fonctionne correctement.
