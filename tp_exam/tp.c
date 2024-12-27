@@ -11,6 +11,7 @@
 #include <segmem.h>
 #include <intr.h>
 #include <segfunc.h>
+#include <intfunc.h>
 
 extern info_t *info;
 extern uint32_t __kernel_start__;
@@ -63,7 +64,7 @@ void tp() {
 
 	printf("\n");
 
-	// ~~~ Global Descriptor Table initialisation ~~~
+	// ~~~ Global Descriptor Table initialization ~~~
 
     gdt_initialization();
 
@@ -76,7 +77,9 @@ void tp() {
 
 	printf("\n");
 
-	// ~~~ Interrupt Descriptor Table initialisation ~~~
+	// ~~~ Interrupt Descriptor Table initialization ~~~
+
+    idt_initialization();
 	
 	idt_reg_t idtr;
 	get_idtr(idtr);
