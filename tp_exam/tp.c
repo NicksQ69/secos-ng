@@ -1,8 +1,16 @@
 /* GPLv2 (c) Airbus */
+
+/*
+    Authors :
+    - Nicolas Barboteu <nicolas.barboteu@etu.toulouse-inp.fr>
+    - Mathis Hyounet <mathis.hyounet@etu.toulouse-inp.fr>
+*/
+
 #include <debug.h>
 #include <info.h>
 #include <segmem.h>
 #include <intr.h>
+#include <segfunc.h>
 
 extern info_t *info;
 extern uint32_t __kernel_start__;
@@ -56,6 +64,8 @@ void tp() {
 	printf("\n");
 
 	// ~~~ Global Descriptor Table initialisation ~~~
+
+    gdt_initialization();
 
     gdt_reg_t gdtr_ptr;
     get_gdtr(gdtr_ptr);
