@@ -16,6 +16,10 @@
 extern info_t *info;
 extern uint32_t __kernel_start__;
 extern uint32_t __kernel_end__;
+extern uint32_t __user1_start__;
+extern uint32_t __user1_end__;
+extern uint32_t __user2_start__;
+extern uint32_t __user2_end__;
 
 void print_gdt_content(gdt_reg_t gdtr_ptr) {
     seg_desc_t* gdt_ptr;
@@ -46,11 +50,39 @@ void print_gdt_content(gdt_reg_t gdtr_ptr) {
     }
 }
 
+__attribute__((section(".user1"))) void user1()
+{
+    volatile unsigned long long i = 0;
+    while(1)
+    {
+        i++;
+        if(i>=5000000){
+            printf("user1 looping ...\n");
+            i=0;
+        }
+    }
+}
+
+__attribute__((section(".user2"))) void user2()
+{
+    volatile unsigned long long i = 0;
+    while(1)
+    {
+        i++;
+        if(i>=5000000){
+            printf("user2 looping ...\n");
+            i=0;
+        }
+    }
+}
+
 void tp() {
 	
-	printf("\nShow memory mapping ~>\n");
-	debug("Kernel memory : \t[%p - %p]\n", &__kernel_start__, &__kernel_end__);
-	debug("MBI flags : \t\t[0x%x]\n\n", info->mbi->flags);
+    printf("\n");
+	debug("Kernel memory range : \t\t[%p - %p]\n", &__kernel_start__, &__kernel_end__);
+    debug("MBI flags : \t\t\t[0x%x]\n", info->mbi->flags);
+	debug("USER1 memory range : \t\t[%p - %p]\n", &__user1_start__, &__user1_end__);
+    debug("USER2 memory range : \t\t[%p - %p]\n\n", &__user2_start__, &__user2_end__); 
 
 	multiboot_memory_map_t* entry = (multiboot_memory_map_t*)info->mbi->mmap_addr;
    	while((uint32_t)entry < (info->mbi->mmap_addr + info->mbi->mmap_length)) {
@@ -58,7 +90,7 @@ void tp() {
 						"MULTIBOOT_MEMORY_RESERVED", 
 						"MULTIBOOT_MEMORY_ACPI_RECLAIMABLE", 
 						"MULTIBOOT_MEMORY_NVS"};
-		debug("[0x%x - 0x%x] %s\n", (unsigned int)entry->addr, (unsigned int)(entry->addr + entry->len - 1), mbm[entry->type-1]);
+		debug("%s : \t[0x%x - 0x%x]\n", mbm[entry->type-1], (unsigned int)entry->addr, (unsigned int)(entry->addr + entry->len - 1));
 		entry++;
 	}
 
