@@ -49,7 +49,7 @@ void print_gdt_content(gdt_reg_t gdtr_ptr) {
 void tp() {
 	
 	printf("\nShow memory mapping ~>\n");
-	debug("Kernel memory : \t[0x%p - 0x%p]\n", &__kernel_start__, &__kernel_end__);
+	debug("Kernel memory : \t[%p - %p]\n", &__kernel_start__, &__kernel_end__);
 	debug("MBI flags : \t\t[0x%x]\n\n", info->mbi->flags);
 
 	multiboot_memory_map_t* entry = (multiboot_memory_map_t*)info->mbi->mmap_addr;
