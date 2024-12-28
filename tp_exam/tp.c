@@ -12,6 +12,7 @@
 #include <intr.h>
 #include <segfunc.h>
 #include <intfunc.h>
+#include <pagfunc.h>
 
 extern info_t *info;
 extern uint32_t __kernel_start__;
@@ -118,8 +119,14 @@ void tp() {
 
 	printf("IDT Base Address: \t[%p]\n", (void *)idtr.addr);
 
-    // ~~~ hardware interrupt activation ~~~
+    // ~~~ Hardware interrupt activation ~~~
 
     asm volatile("sti");
+
+    // ~~~ Page Table initialization ~~~
+
+    kernel_paging_initialization();
+
+    enable_paging();
 
 }

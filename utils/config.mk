@@ -36,7 +36,8 @@ core_obj   :=	entry.o \
 		excp.o	\
 		stack.o \
 		segfunc.o \
-		intfunc.o
+		intfunc.o \
+		pagfunc.o
 
 objects    := $(addprefix $(CORE), $(core_obj))
 
