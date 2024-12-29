@@ -127,6 +127,10 @@ void tp() {
 
     kernel_paging_initialization();
 
+    user1_paging_initialization();
+
+    user2_paging_initialization();
+
     enable_paging();
 
 }
