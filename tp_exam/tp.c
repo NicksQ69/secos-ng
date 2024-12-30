@@ -135,4 +135,6 @@ void tp() {
 
     enable_paging();
 
+    // switch_ring3();
+
 }

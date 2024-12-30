@@ -68,3 +68,15 @@ void gdt_initialization()
     set_fs(d0_sel);
     set_gs(d0_sel);
 }
+
+void switch_ring3()
+{
+    set_ds(d3_sel);
+    set_es(d3_sel);
+    set_fs(d3_sel);
+    set_gs(d3_sel);
+    TSS.s0.esp = get_ebp();
+    TSS.s0.ss  = d0_sel;
+    tss_dsc(&GDT[ts_idx], (offset_t)&TSS);
+    set_tr(ts_sel);
+}
