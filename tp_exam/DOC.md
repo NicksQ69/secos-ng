@@ -2,7 +2,7 @@
 
 ## Adresses physiques du code utilisateur
 
-On créer 2 sections de code, une pour chaque fonction utilisateur.
+Dans `/utils/linker.lds`, on créer 2 sections de code : une pour chaque fonction utilisateur.
 
 ```
 USER1 memory range :            [0x1000000 - 0x1ffffff]
@@ -11,7 +11,7 @@ USER2 memory range :            [0x2000000 - 0x2ffffff]
 
 ## Adresses virtuelles utilisateur
 
-On créer 3 tables de pages pour chaque fonction utilisateur.
+Dans `kernel/core/pagfunc.c`, on créer 3 tables de pages pour chaque fonction utilisateur.
 
 **User1 :**
 
