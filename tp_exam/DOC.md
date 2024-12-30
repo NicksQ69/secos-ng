@@ -1,5 +1,12 @@
 # tp_exam
 
+## Adresses du kernel
+
+```
+Kernel start : 0x300000
+Kernel end : 0x600000
+```
+
 ## Adresses physiques du code utilisateur
 
 Dans `/utils/linker.lds`, on créer 2 sections de code : une pour chaque fonction utilisateur.
