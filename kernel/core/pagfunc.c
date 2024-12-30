@@ -31,6 +31,7 @@ void kernel_paging_initialization()
 
 void user1_paging_initialization()
 {
+    // User1 virtual addresses
     pde32_t *pgd = (pde32_t *)0x1100000;
     pte32_t *ptb0 = (pte32_t *)0x1101000; 
     pte32_t *ptb1 = (pte32_t *)0x1102000;
@@ -50,6 +51,7 @@ void user1_paging_initialization()
 
 void user2_paging_initialization()
 {
+    // User2 virtual addresses
     pde32_t *pgd = (pde32_t *)0x2100000;
     pte32_t *ptb0 = (pte32_t *)0x2101000;
     pte32_t *ptb1 = (pte32_t *)0x2102000;

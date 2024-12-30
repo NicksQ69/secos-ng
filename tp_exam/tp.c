@@ -51,6 +51,7 @@ void print_gdt_content(gdt_reg_t gdtr_ptr) {
     }
 }
 
+// User1 code in .user1 section
 __attribute__((section(".user1"))) void user1()
 {
     volatile unsigned long long i = 0;
@@ -64,6 +65,7 @@ __attribute__((section(".user1"))) void user1()
     }
 }
 
+// User2 code in .user2 section
 __attribute__((section(".user2"))) void user2()
 {
     volatile unsigned long long i = 0;
