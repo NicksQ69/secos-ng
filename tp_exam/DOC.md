@@ -37,3 +37,12 @@ ptb0 :            0x2101000
 ptb1 :            0x2102000
 ptb2 :            0x2103000
 ```
+
+## Limites du projet
+
+Voici ce que nous n'avons pas pu mettre en place et qu'il resterait à faire :
+- mémoire partagée (aux mêmes adresses physiques, mais à des adresses virtuelles différentes pour les taches user1 et user2)
+- interruption 32 (irq0 = horloge) pour pouvoir incrémenter le compteur dans la tache user1
+- appel système `void sys_counter(uint32_t *counter);` interruption 80 côté noyau, reçoit un uint32 et l'affiche avec debug()
+- stack noyau et stack utilisateur pour chaque tache
+- ordonnancement simple pour l'exécution des taches, et démarrer les taches
